@@ -1,5 +1,6 @@
 package StudentDataBaseApp;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -11,7 +12,14 @@ public class Main {
     //Create a method to ask how mane new users we want to add
     static public int countOfStudents() {
         System.out.print("How many students do you want to add: ");
-        int countOfStudents = new Scanner(System.in).nextInt();
+        int countOfStudents = 0;
+        try {
+            countOfStudents = new Scanner(System.in).nextInt();
+            return countOfStudents;
+        } catch (InputMismatchException e) {
+            System.out.println("Entered invalid variable. You can't enter any symbols instead of number " +
+                    "in average from 0 and more");
+        }
         return countOfStudents;
     }
 

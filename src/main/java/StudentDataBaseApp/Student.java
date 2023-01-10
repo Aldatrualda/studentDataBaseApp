@@ -1,11 +1,12 @@
 package StudentDataBaseApp;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Student {
     private final String firstName;
     private final String lastName;
-    private final String gradeYear;
+    private String gradeYear;
     private String studentID;
     private String courses = "";
     private int tuitionBalance;
@@ -24,11 +25,43 @@ public class Student {
         System.out.print("Enter student last name: ");
         this.lastName = sc.nextLine();
 
-        System.out.print("1 - Freshman\n2 - Sophomore\n3 - Junior\n4 - Senior\nEnter student class level: ");
-        this.gradeYear = sc.nextLine();
-
+        //add a grade year to our student
+        setGradeYear();
         //add a studentID to our student
         setStudentID();
+    }
+
+    //Set a grade year of a student
+    public void setGradeYear() {
+        System.out.print("""
+                1 - Freshman
+                2 - Sophomore
+                3 - Junior
+                4 - Senior
+                Enter student class level:\s""");
+        try {
+            int intGradeYear = new Scanner(System.in).nextInt();
+            switch (intGradeYear) {
+                case (1) -> {
+                    this.gradeYear = "1";
+                }
+                case (2) -> {
+                    this.gradeYear = "2";
+                }
+                case (3) -> {
+                    this.gradeYear = "3";
+                }
+                case (4) -> {
+                    this.gradeYear = "4";
+                }
+                default -> {
+                    System.out.println("In developing");
+                }
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Entered invalid variable. You can't enter a letter or letters of alphabet.");
+            setGradeYear();
+        }
     }
 
     //Generate an ID
@@ -39,40 +72,45 @@ public class Student {
 
     //Enroll in courses
     public void enrollInCourse() {
-        int course;
-        System.out.println("What course do student attend");
-        do {
-            System.out.print("""
-                    1 - History 101;
-                    2 - English 101;
-                    3 - Math 101;
-                    4 - PE 101;
-                    0 - Quit;
-                    Enter a number of course:\s""");
+        try {
+            int course;
+            System.out.println("What course do student attend?");
             Scanner sc = new Scanner(System.in);
-            course = sc.nextInt();
-            switch (course) {
-                case (1) -> {
-                    this.courses = this.courses + "\tHistory 101\n";
-                    this.tuitionBalance = tuitionBalance + costOfCourse;
+            do {
+                System.out.print("""
+                        1 - History 101;
+                        2 - English 101;
+                        3 - Math 101;
+                        4 - PE 101;
+                        0 - Quit;
+                        Enter a number of course:\s""");
+                course = sc.nextInt();
+                switch (course) {
+                    case (1) -> {
+                        this.courses = this.courses + "\tHistory 101\n";
+                        this.tuitionBalance = tuitionBalance + costOfCourse;
+                    }
+                    case (2) -> {
+                        this.courses = this.courses + "\tEnglish 101\n";
+                        this.tuitionBalance = tuitionBalance + costOfCourse;
+                    }
+                    case (3) -> {
+                        this.courses = this.courses + "\tMath 101\n";
+                        this.tuitionBalance = tuitionBalance + costOfCourse;
+                    }
+                    case (4) -> {
+                        this.courses = this.courses + "\tPE 101\n";
+                        this.tuitionBalance = tuitionBalance + costOfCourse;
+                    }
+                    case (0) -> {
+                    }
+                    default -> System.out.println("In developing");
                 }
-                case (2) -> {
-                    this.courses = this.courses + "\tEnglish 101\n";
-                    this.tuitionBalance = tuitionBalance + costOfCourse;
-                }
-                case (3) -> {
-                    this.courses = this.courses + "\tMath 101\n";
-                    this.tuitionBalance = tuitionBalance + costOfCourse;
-                }
-                case (4) -> {
-                    this.courses = this.courses + "\tPE 101\n";
-                    this.tuitionBalance = tuitionBalance + costOfCourse;
-                }
-                case (0) -> {
-                }
-                default -> System.out.println("In developing");
-            }
-        } while (course != 0);
+            } while (course != 0);
+        } catch (InputMismatchException e) {
+            System.out.print("Entered invalid variable. You can't enter a letter or letters of alphabet.\n");
+            enrollInCourse();
+        }
     }
 
     //View balance
