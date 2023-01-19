@@ -18,7 +18,8 @@ public class Main {
             return countOfStudents;
         } catch (InputMismatchException e) {
             System.out.println("Entered invalid variable. You can't enter any symbols instead of number " +
-                    "in average from 0 and more");
+                    "in average from 0 and more.");
+            createArrayOfStudent(countOfStudents());
         }
         return countOfStudents;
     }
